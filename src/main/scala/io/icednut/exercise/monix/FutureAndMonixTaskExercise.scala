@@ -2,7 +2,7 @@ package io.icednut.exercise.monix
 
 import cats.implicits._
 import cats.{Monad, _}
-import model._
+import io.icednut.exercise.common._
 import io.icednut.exercise.monix.util.log
 import monix.eval.Task
 
@@ -20,20 +20,7 @@ object util {
 
 }
 
-object model {
-  type Catalog = String
-  type Brand = String
-  type Wish = String
-  type Category = String
-  type Detail = String
-  type Certification = String
-
-  case class Item(id: Int, catalogId: Int, brandId: Int)
-}
-
 sealed trait AsyncApiComponent[AsyncIO[+_]] {
-
-  import model._
 
   def itemRepository: ItemRepository
 
@@ -82,7 +69,6 @@ sealed trait AsyncApiComponent[AsyncIO[+_]] {
 object ScalaFutureApiComponent extends AsyncApiComponent[Future] {
 
   import scala.concurrent.ExecutionContext.Implicits.global
-  import model._
 
   def itemRepository: ItemRepository = itemRepositoryScalaFuture
 
